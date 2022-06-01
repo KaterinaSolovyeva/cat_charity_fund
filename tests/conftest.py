@@ -1,7 +1,7 @@
 import contextlib
+import uuid
 from datetime import datetime
 
-import uuid
 import pytest
 import pytest_asyncio
 from fastapi.testclient import TestClient
@@ -11,8 +11,9 @@ from mixer.backend.sqlalchemy import Mixer as _mixer
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from app.schemas.user import UserCreate
+
 from app.core.user import get_user_db, get_user_manager
+from app.schemas.user import UserCreate
 
 try:
     from app.core.db import Base, get_async_session

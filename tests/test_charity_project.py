@@ -1,6 +1,7 @@
-from app.models import CharityProject, Donation
-from sqlalchemy.future import select
 import pytest
+from sqlalchemy.future import select
+
+from app.models import CharityProject, Donation
 
 
 @pytest.mark.parametrize(
