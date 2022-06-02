@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -105,7 +106,7 @@ async def partially_update_charity_project(
         await check_name_duplicate(obj_in.name, session)
     if charity_project.fully_invested == 1:
         raise HTTPException(
-            status_code=400,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail='Закрытый проект нельзя редактировать!'
         )
     if (
@@ -113,7 +114,7 @@ async def partially_update_charity_project(
         obj_in.full_amount < charity_project.invested_amount
     ):
         raise HTTPException(
-            status_code=400,
+            status_code=HTTPStatus.BAD_REQUEST,
             detail='Требуемая сумма должна быть больше внесенной!'
         )
     charity_project = await charity_project_crud.update(

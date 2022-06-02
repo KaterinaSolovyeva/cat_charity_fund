@@ -1,3 +1,5 @@
+import logging
+
 from typing import Optional, Union
 
 from fastapi import Depends, Request
@@ -13,6 +15,8 @@ from app.core.db import get_async_session
 from app.models.user import UserTable
 from app.schemas.user import User, UserCreate, UserDB, UserUpdate
 
+
+logging.basicConfig(filename="log_info.log", level=logging.INFO)
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(UserDB, session, UserTable)
@@ -53,7 +57,7 @@ class UserManager(BaseUserManager[UserCreate, UserDB]):
     async def on_after_register(
             self, user: UserDB, request: Optional[Request] = None
     ):
-        print(f'Пользователь {user.email} был зарегистрирован')
+        logging.info(f'Пользователь {user.email} был зарегистрирован')
 
 
 async def get_user_manager(user_db=Depends(get_user_db)):
