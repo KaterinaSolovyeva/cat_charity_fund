@@ -2,23 +2,18 @@ from http import HTTPStatus
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.validators import (check_charity_project_exists,
+                                check_invested_amount_is_none,
+                                check_name_duplicate)
 from app.core.db import get_async_session
 from app.core.user import current_superuser
-from app.api.validators import (
-    check_invested_amount_is_none,
-    check_name_duplicate,
-    check_charity_project_exists
-)
 from app.crud.charity_project import charity_project_crud
-
-from app.schemas.charity_project import (
-    CharityProjectCreate, CharityProjectDB, CharityProjectBase
-)
+from app.schemas.charity_project import (CharityProjectBase,
+                                         CharityProjectCreate,
+                                         CharityProjectDB)
 from app.services.invest import find_donation
-
 
 router = APIRouter()
 
