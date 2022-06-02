@@ -50,7 +50,7 @@ async def create_donation(
 
 @router.get(
     '/my',
-    response_model=list[DonationDB],
+    response_model=List[DonationDB],
     response_model_exclude={'user_id'},
 )
 async def get_my_donation(
